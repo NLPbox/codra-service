@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import os
 import sys
-from tempfile import NamedTemporaryFile
 
 import hug
 import sh
@@ -10,6 +9,14 @@ PARSER_PATH = '/opt/codra-rst-parser'
 PARSER_EXECUTABLE = 'codra.sh'
 INPUT_FILEPATH = '/tmp/input.txt'
 OUTPUT_FILEPATH = INPUT_FILEPATH+'.dis'
+
+
+@hug.response_middleware()
+def process_data(request, response, resource):
+    """This is a middleware function that gets called for every request a hug API processes.
+    It will allow Javascript clients on other hosts / ports to access the API (CORS request).
+    """
+    response.set_header('Access-Control-Allow-Origin', '*')
 
 
 @hug.post('/parse', output=hug.output_format.file)
