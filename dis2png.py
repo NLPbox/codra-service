@@ -12,17 +12,14 @@ from discoursegraphs.readwrite.rst.dis.distree import DisRSTTree
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('input_file', help="path to RST tree in .dis format")
-    parser.add_argument('output_file', help="path to output file in .png format")
+    parser.add_argument('input_file', help="path to RST tree (.dis format)")
+    parser.add_argument('output_file', help="path to output file (base64 png string format)")
 
     args = parser.parse_args(sys.argv[1:])
 
-    t = DisRSTTree(args.input_file)
-#    TreeView(t)._cframe.print_to_file(args.output_file)
+    t = DisRSTTree(args.input_file, word_wrap=20)
 
-#    import pudb; pudb.set_trace()
     base64_pngstr = t._repr_png_()
-    #~ pngbin = base64.b64decode(pngstr)
     with open(args.output_file, 'wb') as outfile:
         outfile.write(base64_pngstr)
 

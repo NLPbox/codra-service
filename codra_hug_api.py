@@ -23,8 +23,6 @@ def process_data(request, response, resource):
 def call_parser(body, output_format):
     parser = sh.Command(os.path.join(PARSER_PATH, PARSER_EXECUTABLE))
 
-#    import pudb; pudb.set_trace()
-
     if 'input' in body:
         input_file_content = body['input']
         with open(INPUT_FILEPATH, 'wb') as input_file:
