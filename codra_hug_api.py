@@ -20,8 +20,10 @@ def process_data(request, response, resource):
 
 
 @hug.post('/parse', output=hug.output_format.file)
-def call_parser(body, output_format: hug.types.text):
+def call_parser(body, output_format):
     parser = sh.Command(os.path.join(PARSER_PATH, PARSER_EXECUTABLE))
+
+#    import pudb; pudb.set_trace()
 
     if 'input' in body:
         input_file_content = body['input']
@@ -29,7 +31,14 @@ def call_parser(body, output_format: hug.types.text):
             input_file.write(input_file_content)
         
         parser_stdout = parser(input_file.name, _cwd=PARSER_PATH)
-        return OUTPUT_FILEPATH
+        
+        if output_format == b'nltk-tree-png':
+            dis2png = sh.Command('./convert.sh')
+            dis2png(OUTPUT_FILEPATH)
+            return OUTPUT_FILEPATH+'.png'
+        
+        else: # always fall back to the 'original' output format of the parser
+            return OUTPUT_FILEPATH
     
     else:
         return {'body': body}
