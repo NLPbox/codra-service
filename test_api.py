@@ -4,6 +4,7 @@
 
 import pytest
 import requests
+import sh
 
 
 INPUT_TEXT = "Altough they didn't like him, they accepted the offer."
@@ -18,6 +19,10 @@ EXPECTED_OUTPUT = """( Root (span 1 3)
 
 def test_api_plaintext():
     """The codra-service API produces the expected plaintext parse output."""
+    # start API as a background process
+    hug = sh.Command('/usr/local/bin/hug')
+    hug('-f', 'codra_hug_api.py', _cwd='/opt/codra_service', _bg=True)
+
     res = requests.post(
         'http://localhost:8000/parse',
         files={'input': INPUT_TEXT},
