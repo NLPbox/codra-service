@@ -16,12 +16,13 @@ RUN git clone https://github.com/arne-cl/discoursegraphs
 WORKDIR /opt/discoursegraphs
 RUN pip2 install -r requirements.txt
 
+# needed for running tests
+RUN pip3 install pudb pytest requests pexpect
+
+
 WORKDIR /opt/codra_service
 ADD convert.sh dis2png.py codra_hug_api.py test_api.py /opt/codra_service/
 EXPOSE 8000
-
-# needed for running tests
-RUN pip3 install pytest requests
 
 ENTRYPOINT ["hug"]
 CMD ["-f", "codra_hug_api.py"]
