@@ -1,4 +1,4 @@
-FROM nlpbox/codra
+FROM nlpbox/codra:2018-05-04-4
 
 # we need to install pygraphviz manually because of this error:
 # http://stackoverflow.com/questions/32885486/pygraphviz-importerror-undefined-symbol-agundirected
