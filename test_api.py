@@ -14,7 +14,8 @@ EXPECTED_OUTPUT = """( Root (span 1 3)
     ( Nucleus (leaf 2) (rel2par span) (text _!they did n't like him ,_!) )
    )
   ( Nucleus (leaf 3) (rel2par Same-Unit) (text _!they accepted the offer ._!) )
-)"""
+)
+"""
 
 
 @pytest.fixture(scope="session", autouse=True)

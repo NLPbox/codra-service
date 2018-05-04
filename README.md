@@ -1,14 +1,23 @@
-# build
+# docker-service
+
+[![Travis Build Status](https://travis-ci.org/NLPbox/codra-service.svg?branch=master)](https://travis-ci.org/NLPbox/codra-service)
+[![Docker Build Status](https://img.shields.io/docker/build/nlpbox/codra-service.svg)](https://hub.docker.com/r/nlpbox/codra-service/)
+
+This docker container allows you to build, install and run the
+[CODRA RST discourse parser](http://alt.qcri.org/tools/discourse-parser/)
+(Joty et al. 2015) in a docker container with an added REST API.
+
+## build
 
 docker build -t codra-service .
 
-# run
+## run
 
 docker run -p 8000:8000 -ti codra-service
 
-# Usage Examples
+## Usage Examples
 
-## CURL
+### CURL
 
 ```
 $ cat test.txt 
@@ -24,7 +33,7 @@ $ curl -X POST -F "input=@test.txt" http://localhost:8000/parse -F output_format
 )
 ```
 
-## Javascript
+### Javascript
 
 ```
 >>> var xhr = new XMLHttpRequest();

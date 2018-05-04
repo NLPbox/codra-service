@@ -1,0 +1,10 @@
+sudo: required
+
+services:
+  - docker
+
+install:
+  - docker build -t codra-service .
+
+script:
+  - docker run --entrypoint=/usr/local/bin/pytest -ti codra-service test_api.py
