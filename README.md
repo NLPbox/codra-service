@@ -31,6 +31,24 @@ $ curl -X POST -F "input=@test.txt" http://localhost:8000/parse -F output_format
    )
   ( Nucleus (leaf 3) (rel2par Same-Unit) (text _!they accepted the offer ._!) )
 )
+
+$ curl -X POST -F "input=@test.txt" http://localhost:8000/parse -F output_format=rs3
+<?xml version='1.0' encoding='UTF-8'?>
+<rst>
+  <header>
+    <relations>
+      <rel name="Attribution" type="rst"/>
+      <rel name="Same-Unit" type="multinuc"/>
+    </relations>
+  </header>
+  <body>
+    <segment id="5" parent="7" relname="Attribution">Altough</segment>
+    <segment id="7" parent="3" relname="span">they did n't like him ,</segment>
+    <segment id="9" parent="1" relname="Same-Unit">they accepted the offer .</segment>
+    <group id="1" type="multinuc"/>
+    <group id="3" type="span" parent="1" relname="Same-Unit"/>
+  </body>
+</rst>
 ```
 
 ### Javascript

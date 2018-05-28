@@ -10,6 +10,7 @@ PARSER_PATH = '/opt/codra-rst-parser'
 PARSER_EXECUTABLE = 'codra.sh'
 INPUT_FILEPATH = '/tmp/input.txt'
 OUTPUT_FILEPATH = os.path.join(PARSER_PATH, 'input.txt.dis')
+RS3_OUTPUT_FILEPATH = os.path.join(PARSER_PATH, 'input.rs3')
 
 
 @hug.response_middleware()
@@ -36,7 +37,12 @@ def call_parser(body, response):
                 dis2png = sh.Command('./convert.sh')
                 dis2png(OUTPUT_FILEPATH)
                 return OUTPUT_FILEPATH+'.png'
-        
+            if body['output_format'] == b'rs3':
+                # codra2rs3.py needs Python 2.7 (because of discoursegraphs),
+                # so we need to shell out
+                codra2rs3 = sh.Command('./codra2rs3.py')
+                codra2rs3(OUTPUT_FILEPATH, RS3_OUTPUT_FILEPATH)
+                return RS3_OUTPUT_FILEPATH
             else: # always fall back to the 'original' output format of the parser
                 return OUTPUT_FILEPATH
         except sh.ErrorReturnCode_1 as err:

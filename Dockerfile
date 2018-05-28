@@ -1,4 +1,4 @@
-FROM nlpbox/codra:2018-05-04-4
+FROM nlpbox/codra:2018-05-22
 
 # we need to install pygraphviz manually because of this error:
 # http://stackoverflow.com/questions/32885486/pygraphviz-importerror-undefined-symbol-agundirected
@@ -21,7 +21,7 @@ RUN pip3 install pudb pytest requests pexpect
 
 
 WORKDIR /opt/codra_service
-ADD convert.sh dis2png.py codra_hug_api.py test_api.py /opt/codra_service/
+ADD convert.sh dis2png.py codra2rs3.py codra_hug_api.py test_api.py /opt/codra_service/
 EXPOSE 8000
 
 ENTRYPOINT ["hug"]
