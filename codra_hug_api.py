@@ -9,7 +9,7 @@ import sh
 PARSER_PATH = '/opt/codra-rst-parser'
 PARSER_EXECUTABLE = 'codra.sh'
 INPUT_FILEPATH = '/tmp/input.txt'
-OUTPUT_FILEPATH = INPUT_FILEPATH+'.dis'
+OUTPUT_FILEPATH = os.path.join(PARSER_PATH, 'input.txt.dis')
 
 
 @hug.response_middleware()
