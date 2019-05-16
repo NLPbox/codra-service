@@ -18,24 +18,6 @@ EXPECTED_OUTPUT = """( Root (span 1 3)
 )
 """
 
-EXPECTED_RS3 = """<?xml version='1.0' encoding='UTF-8'?>
-<rst>
-  <header>
-    <relations>
-      <rel name="Attribution" type="rst"/>
-      <rel name="Same-Unit" type="multinuc"/>
-    </relations>
-  </header>
-  <body>
-    <segment id="5" parent="7" relname="Attribution">Altough</segment>
-    <segment id="7" parent="3" relname="span">they did n't like him ,</segment>
-    <segment id="9" parent="1" relname="Same-Unit">they accepted the offer .</segment>
-    <group id="1" type="multinuc"/>
-    <group id="3" type="span" parent="1" relname="Same-Unit"/>
-  </body>
-</rst>
-"""
-
 
 @pytest.fixture(scope="session", autouse=True)
 def start_api():
@@ -49,14 +31,5 @@ def test_api_plaintext():
     """The codra-service API produces the expected plaintext parse output."""
     res = requests.post(
         'http://localhost:8000/parse',
-        files={'input': INPUT_TEXT},
-        data={'output_format': 'original'})
+        files={'input': INPUT_TEXT})
     assert res.content.decode('utf-8') == EXPECTED_OUTPUT
-
-def test_api_rs3():
-    """The codra-service API produces the expected parse output in .rs3 format."""
-    res = requests.post(
-        'http://localhost:8000/parse',
-        files={'input': INPUT_TEXT},
-        data={'output_format': 'rs3'})
-    assert res.content.decode('utf-8') == EXPECTED_RS3
